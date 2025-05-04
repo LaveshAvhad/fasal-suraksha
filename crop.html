@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crop Information</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f1f8e9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #388e3c;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .introduction, .resource-section, .faq-section, .tips-section, .contact-section, .footer {
+      padding: 20px;
+      background-color: #ffffff;
+      margin: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .crop-container {
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      margin: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .crop-title {
+      font-size: 28px;
+      color: #388e3c;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .crop-selection {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+    }
+
+    .crop-box {
+      background-color: #81c784;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      transition: 0.3s ease;
+    }
+
+    .crop-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .disease-info, .solution-info {
+      margin-top: 20px;
+      background-color: #ffeb3b;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #444;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .faq-section h3, .tips-section h3, .contact-section h3 {
+      color: #388e3c;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      background-color: #388e3c;
+      color: white;
+    }
+
+    .contact-section input, .contact-section textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .contact-section button {
+      padding: 10px 20px;
+      background: #388e3c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Crop Information Portal</h1>
+  </div>
+
+  <div class="introduction">
+    <h2>Welcome</h2>
+    <p>Learn about diseases affecting major crops and their remedies. Select a crop below to view detailed information.</p>
+  </div>
+
+  <div class="crop-container">
+    <div class="crop-title">Select a Crop</div>
+    <div class="crop-selection">
+      <div class="crop-box" onclick="showCropInfo('rice')">Rice</div>
+      <div class="crop-box" onclick="showCropInfo('wheat')">Wheat</div>
+      <div class="crop-box" onclick="showCropInfo('corn')">Corn</div>
+      <div class="crop-box" onclick="showCropInfo('cotton')">Cotton</div>
+      <div class="crop-box" onclick="showCropInfo('tomato')">Tomato</div>
+      <div class="crop-box" onclick="showCropInfo('potato')">Potato</div>
+      <div class="crop-box" onclick="showCropInfo('sugarcane')">Sugarcane</div>
+      <div class="crop-box" onclick="showCropInfo('soybean')">Soybean</div>
+      <div class="crop-box" onclick="showCropInfo('groundnut')">Groundnut</div>
+    </div>
+  </div>
+
+  <div id="crop-info" class="crop-container" style="display:none;">
+    <div class="crop-title" id="crop-title"></div>
+    <div class="disease-info" id="disease-info"></div>
+    <div class="solution-info" id="solution-info"></div>
+    <button class="back-btn" onclick="goBack()">Back</button>
+  </div>
+
+  <div class="tips-section">
+    <h3>Farming Best Practices</h3>
+    <ul>
+      <li>Use certified disease-free seeds.</li>
+      <li>Practice crop rotation to maintain soil health.</li>
+      <li>Ensure timely irrigation and fertilization.</li>
+      <li>Regularly monitor fields for pest infestation.</li>
+    </ul>
+  </div>
+
+  <div class="faq-section">
+    <h3>Frequently Asked Questions</h3>
+    <p><strong>Q1:</strong> How do I know if my crop is diseased?<br>
+    <strong>A:</strong> Look for abnormal spots, yellowing, stunted growth, or wilting leaves.</p>
+
+    <p><strong>Q2:</strong> Where can I buy recommended fungicides?<br>
+    <strong>A:</strong> Local agricultural supply stores or online platforms.</p>
+
+    <p><strong>Q3:</strong> Can I get support in local languages?<br>
+    <strong>A:</strong> Yes, multilingual support is available through agricultural helplines.</p>
+  </div>
+
+  <div class="resource-section">
+    <h3>Additional Resources</h3>
+    <ul>
+      <li><a href="https://www.agriculture.com" target="_blank">Agriculture News</a></li>
+      <li><a href="https://www.agri-tech.com" target="_blank">Agri-Tech Innovations</a></li>
+      <li><a href="https://www.cropsolutions.com" target="_blank">Crop Management Tips</a></li>
+    </ul>
+  </div>
+
+  <div class="contact-section">
+    <h3>Contact Us</h3>
+    <p>If you need more help or have suggestions, please reach out.</p>
+    <input type="text" placeholder="Your Name" />
+    <input type="email" placeholder="Your Email" />
+    <textarea rows="4" placeholder="Your Message"></textarea>
+    <button>Send Message</button>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 CropInfo Portal | Designed for Smart Farming | Contact: support@cropinfo.com
+  </div>
+
+  <script>
+    const cropData = {
+      rice: {
+        title: "Rice Crop Information",
+        diseases: ["Rice Blast", "Sheath Blight", "Bacterial Blight"],
+        solutions: [
+          "Use Carbendazim for Rice Blast.",
+          "Apply Tricyclazole for Sheath Blight.",
+          "Use copper bactericides for Bacterial Blight."
+        ]
+      },
+      wheat: {
+        title: "Wheat Crop Information",
+        diseases: ["Wheat Rust", "Powdery Mildew", "Fusarium Head Blight"],
+        solutions: [
+          "Use Propiconazole for Rust.",
+          "Apply fungicides for Mildew.",
+          "Crop rotation helps prevent Fusarium."
+        ]
+      },
+      corn: {
+        title: "Corn Crop Information",
+        diseases: ["Northern Leaf Blight", "Corn Rootworm"],
+        solutions: ["Use Azoxystrobin for blight.", "Rotate crops to avoid Rootworm."]
+      },
+      cotton: {
+        title: "Cotton Crop Information",
+        diseases: ["Boll Rot", "Leaf Curl Virus"],
+        solutions: ["Use resistant varieties and drainage.", "Control vectors for virus."]
+      },
+      tomato: {
+        title: "Tomato Crop Info",
+        diseases: ["Early Blight", "Mosaic Virus"],
+        solutions: ["Use Chlorothalonil for blight.", "Plant resistant varieties."]
+      },
+      potato: {
+        title: "Potato Crop Info",
+        diseases: ["Late Blight", "Black Scurf"],
+        solutions: ["Apply Mancozeb.", "Ensure soil drainage."]
+      },
+      sugarcane: {
+        title: "Sugarcane Crop Info",
+        diseases: ["Red Rot", "Smut"],
+        solutions: ["Use disease-free setts.", "Apply hot water treatment."]
+      },
+      soybean: {
+        title: "Soybean Crop Info",
+        diseases: ["Rust", "Root Rot"],
+        solutions: ["Use Propiconazole.", "Practice crop rotation."]
+      },
+      groundnut: {
+        title: "Groundnut Crop Info",
+        diseases: ["Tikka Disease", "Rust"],
+        solutions: ["Use Mancozeb.", "Apply sulfur fungicides."]
+      }
+    };
+
+    function showCropInfo(crop) {
+      const info = cropData[crop];
+      document.getElementById("crop-title").textContent = info.title;
+
+      const diseaseList = info.diseases.map(d => `<li>${d}</li>`).join('');
+      document.getElementById("disease-info").innerHTML = `<h3>Diseases:</h3><ul>${diseaseList}</ul>`;
+
+      const solutionList = info.solutions.map(s => `<li>${s}</li>`).join('');
+      document.getElementById("solution-info").innerHTML = `<h3>Solutions:</h3><ul>${solutionList}</ul>`;
+
+      document.getElementById("crop-info").style.display = "block";
+      document.querySelector(".crop-container").style.display = "none";
+    }
+
+    function goBack() {
+      document.getElementById("crop-info").style.display = "none";
+      document.querySelector(".crop-container").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>

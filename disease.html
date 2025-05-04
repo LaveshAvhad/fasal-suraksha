@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disease Detection</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: white;
+      margin: 0;
+      padding: 20px;
+      color: #3A3A3A;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #FFFFFF;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .heading {
+      font-size: 36px;
+      font-weight: bold;
+      color: #4CAF50;
+      margin-bottom: 20px;
+    }
+
+    .subHeading {
+      font-size: 18px;
+      color: #c5f85f;
+      margin-bottom: 40px;
+    }
+
+    .info-section {
+      background-color: #f9f9f9;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    .info-heading {
+      font-size: 22px;
+      font-weight: bold;
+      color: #3B7A57;
+      margin-bottom: 15px;
+    }
+
+    .info-text {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .upload-container {
+      background-color: #f9f9f9;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      transition: transform 0.3s ease;
+    }
+
+    .upload-container:hover {
+      transform: scale(1.02);
+    }
+
+    .upload-text {
+      font-size: 20px;
+      font-weight: bold;
+      color: #3B7A57;
+      margin-bottom: 20px;
+    }
+
+    .upload-buttons {
+      display: flex;
+      justify-content: space-around; 
+      margin-bottom: 15px;
+    }
+
+    .upload-button {
+      flex: 1;
+      padding: 15px;
+      background-color: #4CAF50;
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .upload-button:hover {
+      background-color: #388E3C;
+      transform: scale(1.05);
+    }
+
+    .button-text {
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .image-preview {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 1px dashed #A5D6A7;
+      border-radius: 8px;
+      max-width: 100%;
+      background-color: #f4f4f4;
+    }
+
+    .image-preview img {
+      max-width: 100%;
+      height: 200px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .input-label {
+      font-size: 18px;
+      font-weight: bold;
+      color: #3B7A57;
+      margin-bottom: 10px;
+    }
+
+    .input-box {
+      width: 100%;
+      height: 120px;
+      border: 1px solid #A5D6A7;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 16px;
+      color: #555;
+      box-sizing: border-box;
+      margin-bottom: 30px;
+      background-color: #f9f9f9;
+    }
+
+    .submit-button {
+      background-color: #4CAF50;
+      padding: 15px;
+      font-size: 18px;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      width: 100%;
+    }
+
+    .submit-button:hover {
+      background-color: #388E3C;
+      transform: scale(1.05);
+    }
+
+    .submit-button:active {
+      background-color: #2C6E2F;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="heading" id="heading">Disease Detection</div>
+    <div class="subHeading" id="subHeading">Frequently Occurred Disease in Your Area</div>
+
+    <div class="info-section">
+      <div class="info-heading">How it works</div>
+      <div class="info-text">
+        Upload an image of your crop, and the system will analyze it to detect potential diseases. You can either capture a photo using your device's camera or upload an existing image. After uploading the image, describe the symptoms you observe, and click "Submit" for the system to process your request.
+      </div>
+    </div>
+
+    <div class="upload-container">
+      <div class="upload-text" id="upload">Upload Crop Image</div>
+      <div class="upload-buttons">
+        <div class="upload-button" id="cameraBtn">
+          <img src="camara.png" alt="Camera" width="28" height="28">
+          <div class="button-text" id="cameraText">Click Photo</div>
+        </div>
+        <div class="upload-button" id="galleryBtn">
+          <img src="gallry.png" alt="Gallery" width="28" height="28">
+          <div class="button-text" id="galleryText">Upload Photo</div>
+        </div>
+      </div>
+
+      <div class="image-preview" id="imagePreview"></div>
+
+      <input type="file" id="fileInput" accept="image/*">
+    </div>
+
+    <div class="input-label" id="symptomsLabel">Write Symptoms</div>
+    <textarea class="input-box" id="symptoms" placeholder="Write symptoms"></textarea>
+
+    <div class="submit-button" id="submitBtn" onclick="submitData()">Submit</div>
+    <div id="predictionResult"></div>
+  </div>
+
+  <script>
+    let selectedImage = null;
+
+    const cameraBtn = document.getElementById('cameraBtn');
+    const galleryBtn = document.getElementById('galleryBtn');
+    const imagePreview = document.getElementById('imagePreview');
+    const fileInput = document.getElementById('fileInput');
+
+    cameraBtn.addEventListener('click', () => {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+          const video = document.createElement('video');
+          video.srcObject = stream;
+          video.play();
+          video.style.maxWidth = '100%';
+          
+          const captureBtn = document.createElement('button');
+          captureBtn.innerText = 'Capture Photo';
+          document.body.appendChild(captureBtn);
+          
+          captureBtn.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0);
+            const imageData = canvas.toDataURL('image/png');
+            imagePreview.innerHTML = `<img src="${imageData}" alt="Captured Photo">`;
+            selectedImage = imageData;
+
+            stream.getTracks().forEach(track => track.stop());
+            captureBtn.remove();
+          });
+
+          document.body.appendChild(video);
+        })
+        .catch((error) => {
+          alert('Unable to access camera: ' + error);
+        });
+    });
+
+    galleryBtn.addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          imagePreview.innerHTML = `<img src="${reader.result}" alt="Gallery Image">`;
+          selectedImage = reader.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    const submitData = () => {
+      if (selectedImage) {
+        const formData = new FormData();
+        const blob = dataURItoBlob(selectedImage); // Convert base64 to Blob
+        formData.append('file', blob, 'image.jpg');
+
+        fetch('http://localhost:8000/predict', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            alert('Error: ' + data.error);
+          } else {
+            // Redirect to a new page and pass the result via URL parameters
+            const params = new URLSearchParams({
+              prediction: data.class,
+              confidence: (data.confidence * 100).toFixed(2)
+            });
+            window.location.href = `result.html?${params.toString()}`;
+          }
+        })
+        .catch(error => {
+          alert('There was an error with the image upload or prediction.');
+        });
+      } else {
+        alert("Please upload an image first!");
+      }
+    };
+
+    function dataURItoBlob(dataURI) {
+      const byteString = atob(dataURI.split(',')[1]);
+      const arrayBuffer = new ArrayBuffer(byteString.length);
+      const uintArray = new Uint8Array(arrayBuffer);
+      for (let i = 0; i < byteString.length; i++) {
+        uintArray[i] = byteString.charCodeAt(i);
+      }
+      return new Blob([uintArray], {type: 'image/jpeg'});
+    }
+  </script>
+</body>
+</html>

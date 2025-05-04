@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Submit your soil health report for analysis." />
+  <meta name="author" content="Your Name" />
+  <title>Fasal Suraksha - Soil Report Update</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #f7f8f6;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #388e3c;
+      color: white;
+      padding: 25px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: fixed;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      transform: translateX(-250px); /* Initially hidden */
+      transition: transform 0.3s ease;  /* Smooth transition */
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #2c6c2c;
+    }
+
+    .main {
+      padding: 30px;
+      margin-left: 0;
+      width: 100%;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      background-color: #388e3c;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .logo {
+      width: 40px;
+      margin-right: 15px;
+    }
+
+    .user-section {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      gap: 20px;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-container label {
+      font-size: 16px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .form-container input, .form-container select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 15px;
+      background-color: #388e3c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .form-container button:hover {
+      background-color: #2c6c2c;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <a href="#" onclick="navigateToHome()">🏠 Home</a>
+    <a href="#" onclick="navigateToDiseaseDetection()">🧫 Disease Detection</a>
+    <a href="#" onclick="navigateToCropRegistration()">🌾 Crop Registration</a>
+    <a href="#" onclick="navigateToSoilUpload()">🧪 Soil Upload</a>
+    <a href="#" onclick="navigateToAbout()">ℹ️ About</a>
+    <a href="#" onclick="navigateToContact()">📞 Contact</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main">
+    <header>
+      <img src="mainfs.png" alt="Logo" class="logo" />
+      Fasal Suraksha
+    </header>
+
+    <div class="form-container">
+      <h2>Submit Soil Health Report</h2>
+
+      <!-- Soil Report Form -->
+      <form id="soilReportForm" enctype="multipart/form-data">
+        <label for="ph">Soil pH:</label>
+        <input type="number" id="ph" name="ph" min="0" max="14" required />
+
+        <label for="moisture">Soil Moisture (%):</label>
+        <input type="number" id="moisture" name="moisture" min="0" max="100" required />
+
+        <label for="nitrogen">Nitrogen Level (ppm):</label>
+        <input type="number" id="nitrogen" name="nitrogen" required />
+
+        <label for="phosphorus">Phosphorus Level (ppm):</label>
+        <input type="number" id="phosphorus" name="phosphorus" required />
+
+        <label for="potassium">Potassium Level (ppm):</label>
+        <input type="number" id="potassium" name="potassium" required />
+
+        <label for="organic-matter">Organic Matter (%):</label>
+        <input type="number" id="organic-matter" name="organic-matter" min="0" max="100" required />
+
+        <label for="soil-report-pdf">Upload Soil Report (PDF):</label>
+        <input type="file" id="soil-report-pdf" name="soil-report-pdf" accept="application/pdf" required />
+
+        <button type="submit">Submit Soil Report</button>
+      </form>
+    </div>
+
+  </div>
+
+  <script>
+    // Handle form submission
+    document.getElementById("soilReportForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(this);
+      const soilData = {
+        ph: formData.get("ph"),
+        moisture: formData.get("moisture"),
+        nitrogen: formData.get("nitrogen"),
+        phosphorus: formData.get("phosphorus"),
+        potassium: formData.get("potassium"),
+        organicMatter: formData.get("organic-matter"),
+        soilReportPdf: formData.get("soil-report-pdf")
+      };
+
+      console.log("Soil Report Submitted:", soilData);
+
+      // Example: Send the data to a backend or API
+      // fetch("your-api-endpoint", { method: "POST", body: formData })
+      //   .then(response => response.json())
+      //   .then(data => alert("Report submitted successfully"))
+      //   .catch(error => alert("Error submitting the report"));
+
+      alert("Soil Report Submitted Successfully!");
+    });
+
+    // Sidebar toggle functionality
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const currentTransform = sidebar.style.transform;
+
+      if (currentTransform === "translateX(0px)" || currentTransform === "") {
+        sidebar.style.transform = "translateX(-250px)";  // Hide the sidebar
+      } else {
+        sidebar.style.transform = "translateX(0px)";   // Show the sidebar
+      }
+    }
+
+    // Navigation functions
+    function navigateToHome() { window.location.href = "home.html"; }
+    function navigateToDiseaseDetection() { window.location.href = "disease.html"; }
+    function navigateToCropRegistration() { window.location.href = "crop.html"; }
+    function navigateToSoilUpload() { window.location.href = "soil.html"; }
+    function navigateToAbout() { window.location.href = "about.html"; }
+    function navigateToContact() { window.location.href = "contact.html"; }
+  </script>
+</body>
+</html>

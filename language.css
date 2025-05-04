@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .container {
+    text-align: center;
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background: #fff;
+  }
+  
+  #welcomeText {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  #subText {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .languages-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .language-button {
+    width: 30%;
+    height: 50px;
+    margin: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+  }
+  
+  .language-button.selected {
+    background-color: #e0ffe0;
+  }
+  
+  .help-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
+  
+  .help-button,
+  .usage-button {
+    flex: 1;
+    margin: 0 5px;
+    background-color: green;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .usage-button {
+    background-color: blue;
+  }
+  
+  .accept-button {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .accept-button.disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+  

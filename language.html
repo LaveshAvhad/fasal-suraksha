@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choose Language | Fasal Suraksha</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .background-circles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      animation: float 6s infinite ease-in-out;
+    }
+
+    .circle:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      top: 10%;
+      left: 70%;
+    }
+
+    .circle:nth-child(2) {
+      width: 200px;
+      height: 200px;
+      top: 60%;
+      left: 20%;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-30px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .container {
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      padding: 50px 30px;
+      box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      animation: slideIn 1s ease forwards;
+    }
+
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0px); }
+    }
+
+    .container h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .container p {
+      font-size: 16px;
+      color: #7f8c8d;
+      margin-bottom: 30px;
+    }
+
+    .languages {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .language-button {
+      background: #f1f2f6;
+      padding: 12px 0;
+      border-radius: 12px;
+      flex: 0 1 45%;
+      font-size: 15px;
+      font-weight: 600;
+      color: #34495e;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .language-button:hover {
+      background: #dfe4ea;
+      transform: scale(1.05);
+    }
+
+    .language-button.selected {
+      background: #2ecc71;
+      color: white;
+      border-color: #27ae60;
+    }
+
+    .accept-button {
+      background: linear-gradient(90deg, #27ae60, #2ecc71);
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 14px 0;
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: background 0.5s ease, transform 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .accept-button.disabled {
+      background: #bdc3c7;
+      animation: none;
+      cursor: not-allowed;
+    }
+
+    .accept-button:hover {
+      transform: scale(1.03);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.5); }
+      70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="background-circles">
+  <div class="circle"></div>
+  <div class="circle"></div>
+</div>
+
+<div class="container">
+  <h1 id="welcomeText">Welcome! 🙏</h1>
+  <p id="chooseLanguageText">Please select your language</p>
+
+  <div class="languages" id="languagesContainer"></div>
+
+  <button class="accept-button disabled" id="acceptButton" disabled>Accept</button>
+</div>
+
+<script>
+  const translations = {
+    hindi: { welcome: "नमस्ते! 🙏", chooseLanguage: "अपनी भाषा चुनें", accept: "स्वीकार करें" },
+    english: { welcome: "Welcome! 🙏", chooseLanguage: "Select Your Language", accept: "Accept" },
+    marathi: { welcome: "नमस्कार! 🙏", chooseLanguage: "तुमची भाषा निवडा", accept: "स्वीकारा" },
+    gujarati: { welcome: "નમસ્તે! 🙏", chooseLanguage: "તમારી ભાષા પસંદ કરો", accept: "સ્વીકારો" },
+    tamil: { welcome: "வணக்கம்! 🙏", chooseLanguage: "உங்கள் மொழியை தேர்ந்தெடுக்கவும்", accept: "ஏற்கவும்" },
+    telugu: { welcome: "నమస్తే! 🙏", chooseLanguage: "మీ భాషను ఎంచుకోండి", accept: "అంగీకరించండి" },
+    kannada: { welcome: "ನಮಸ್ಕಾರ! 🙏", chooseLanguage: "ನಿಮ್ಮ ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ", accept: "ಸ್ವೀಕರಿಸಿ" },
+    bengali: { welcome: "নমস্কার! 🙏", chooseLanguage: "আপনার ভাষা নির্বাচন করুন", accept: "গ্রহণ করুন" },
+  };
+
+  const languages = [
+    { key: "hindi", label: "हिंदी" },
+    { key: "english", label: "English" },
+    { key: "marathi", label: "मराठी" },
+    { key: "gujarati", label: "ગુજરાતી" },
+    { key: "tamil", label: "தமிழ்" },
+    { key: "telugu", label: "తెలుగు" },
+    { key: "kannada", label: "ಕನ್ನಡ" },
+    { key: "bengali", label: "বাংলা" },
+  ];
+
+  let selectedLanguage = null;
+
+  function translate(key) {
+    return translations[selectedLanguage]?.[key] || translations.english[key];
+  }
+
+  function updateUI() {
+    document.getElementById('welcomeText').textContent = translate('welcome');
+    document.getElementById('chooseLanguageText').textContent = translate('chooseLanguage');
+    const acceptButton = document.getElementById('acceptButton');
+    acceptButton.textContent = translate('accept');
+    acceptButton.disabled = !selectedLanguage;
+    acceptButton.classList.toggle('disabled', !selectedLanguage);
+  }
+
+  const container = document.getElementById('languagesContainer');
+  languages.forEach(language => {
+    const btn = document.createElement('div');
+    btn.className = 'language-button';
+    btn.textContent = language.label;
+    btn.onclick = () => {
+      selectedLanguage = language.key;
+      document.querySelectorAll('.language-button').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      updateUI();
+    };
+    container.appendChild(btn);
+  });
+
+  document.getElementById('acceptButton').onclick = () => {
+    if (!selectedLanguage) return;
+    localStorage.setItem('selectedLanguage', selectedLanguage);
+    window.location.href = 'login.html'; // redirect
+  };
+
+  updateUI();
+</script>
+
+</body>
+</html>

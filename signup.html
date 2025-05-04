@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up | Fasal Suraksha</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .background-circles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      animation: float 6s infinite ease-in-out;
+    }
+
+    .circle:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      top: 10%;
+      left: 70%;
+    }
+
+    .circle:nth-child(2) {
+      width: 200px;
+      height: 200px;
+      top: 60%;
+      left: 20%;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-30px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .container {
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      padding: 40px 30px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      animation: slideIn 1s ease forwards;
+    }
+
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0px); }
+    }
+
+    .signup-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    .signup-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .form-input:focus {
+      border-color: #2ecc71;
+      box-shadow: 0 0 5px #2ecc71;
+    }
+
+    .signup-button {
+      background: linear-gradient(90deg, #27ae60, #2ecc71);
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 14px 0;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: background 0.5s ease, transform 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .signup-button:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.5); }
+      70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+    }
+
+    .login-link {
+      color: #27ae60;
+      text-decoration: none;
+      font-size: 14px;
+      margin-top: 15px;
+      display: inline-block;
+    }
+
+    .login-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="background-circles">
+  <div class="circle"></div>
+  <div class="circle"></div>
+</div>
+
+<div class="container">
+  <div class="signup-title" id="signupTitle">Sign Up Page</div>
+  <form class="signup-form">
+    <input type="text" id="nameInput" class="form-input" placeholder="Name">
+    <input type="text" id="mobileInput" class="form-input" placeholder="Mobile Number">
+    <input type="text" id="otpInput" class="form-input" placeholder="OTP">
+    <input type="text" id="usernameInput" class="form-input" placeholder="Username">
+    <input type="password" id="passwordInput" class="form-input" placeholder="Password">
+    <input type="password" id="confirmPasswordInput" class="form-input" placeholder="Confirm Password">
+    <button type="button" class="signup-button" id="signupButton">Sign Up</button>
+    <a href="login.html" class="login-link" id="loginLink">Login</a>
+  </form>
+</div>
+
+<script>
+  const translations = {
+    hindi: { 
+      signupTitle: "साइन अप पृष्ठ", 
+      namePlaceholder: "नाम", 
+      mobilePlaceholder: "मोबाइल नंबर", 
+      otpPlaceholder: "ओटीपी", 
+      usernamePlaceholder: "उपयोगकर्ता नाम", 
+      passwordPlaceholder: "पासवर्ड", 
+      confirmPasswordPlaceholder: "पासवर्ड की पुष्टि करें", 
+      signupButton: "साइन अप करें", 
+      loginLink: "लॉगिन करें" 
+    },
+    english: { 
+      signupTitle: "Sign Up Page", 
+      namePlaceholder: "Name", 
+      mobilePlaceholder: "Mobile Number", 
+      otpPlaceholder: "OTP", 
+      usernamePlaceholder: "Username", 
+      passwordPlaceholder: "Password", 
+      confirmPasswordPlaceholder: "Confirm Password", 
+      signupButton: "Sign Up", 
+      loginLink: "Login" 
+    },
+    // Add other languages here...
+  };
+
+  const selectedLanguage = localStorage.getItem("selectedLanguage") || "english";
+
+  const translate = (key) => translations[selectedLanguage]?.[key] || translations.english[key];
+
+  document.getElementById("signupTitle").textContent = translate("signupTitle");
+  document.getElementById("nameInput").placeholder = translate("namePlaceholder");
+  document.getElementById("mobileInput").placeholder = translate("mobilePlaceholder");
+  document.getElementById("otpInput").placeholder = translate("otpPlaceholder");
+  document.getElementById("usernameInput").placeholder = translate("usernamePlaceholder");
+  document.getElementById("passwordInput").placeholder = translate("passwordPlaceholder");
+  document.getElementById("confirmPasswordInput").placeholder = translate("confirmPasswordPlaceholder");
+  document.getElementById("signupButton").textContent = translate("signupButton");
+  document.getElementById("loginLink").textContent = translate("loginLink");
+
+  document.getElementById('signupButton').onclick = () => {
+    const name = document.getElementById('nameInput').value;
+    const mobile = document.getElementById('mobileInput').value;
+    const otp = document.getElementById('otpInput').value;
+    const username = document.getElementById('usernameInput').value;
+    const password = document.getElementById('passwordInput').value;
+    const confirmPassword = document.getElementById('confirmPasswordInput').value;
+
+    if (!name || !mobile || !otp || !username || !password || !confirmPassword) {
+      alert("Please fill in all details.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    alert("Sign up successful!");
+    window.location.href = "login.html"; // Redirect to login page
+  };
+</script>
+
+</body>
+</html>
+n

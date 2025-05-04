@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kissan ID Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #f7f9fc, #eaf7ea);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+      max-width: 500px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      border: 1px solid #ddd;
+    }
+    .header {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    .farmer-image {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #4CAF50;
+    }
+    .input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      background-color: #fafafa;
+      transition: border-color 0.3s ease;
+    }
+    .input:focus {
+      border-color: #4CAF50;
+      outline: none;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .button {
+      flex: 1;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.3s;
+    }
+    .submit-button {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .submit-button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    .skip-button {
+      background-color: #87CEEB;
+      color: white;
+    }
+    .button:hover:not(:disabled) {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header" id="kissanID">Kissan ID</div>
+    <img src="real_farmer.png" alt="Farmer" class="farmer-image">
+    <input 
+      type="text" 
+      id="kissanIDInput" 
+      class="input" 
+      placeholder="Please enter the 12-digit Kissan ID" 
+      maxlength="12" 
+      oninput="handleIDChange(event)"
+    >
+    <div class="button-container">
+      <button 
+        id="submitButton" 
+        class="button submit-button" 
+        onclick="handleSubmit()" 
+        disabled
+      >Submit</button>
+      <button 
+        class="button skip-button" 
+        onclick="handleSkip()"
+      >Skip</button>
+    </div>
+  </div>
+
+  <script>
+    const translations = {
+      english: {
+        kissanID: "Kissan ID",
+        submit: "Submit",
+        success: "Kissan ID submitted successfully!",
+        enterID: "Please enter the 12-digit Kissan ID",
+        skip: "Skip",
+      },
+      hindi: {
+        kissanID: "किसान आईडी",
+        submit: "जमा करें",
+        success: "किसान आईडी सफलतापूर्वक भेजा गया!",
+        enterID: "कृपया 12 अंकों का किसान आईडी दर्ज करें",
+        skip: "विचलित करें",
+      },
+    };
+
+    let selectedLanguage = 'english'; 
+
+    function translate(key) {
+      return translations[selectedLanguage][key] || translations.english[key];
+    }
+
+    function handleIDChange(event) {
+      const kissanIDInput = event.target.value;
+      document.getElementById('submitButton').disabled = kissanIDInput.length !== 12;
+    }
+
+    function handleSubmit() {
+      const kissanID = document.getElementById('kissanIDInput').value;
+      if (kissanID.length === 12) {
+        alert(translate("success"));
+        window.location.href = "home.html";
+      } else {
+        alert(translate("enterID"));
+      }
+    }
+
+    function handleSkip() {
+      alert("Skipped");
+      window.location.href = "home.html";
+    }
+
+    document.getElementById('kissanID').innerText = translate('kissanID');
+    document.getElementById('submitButton').innerText = translate('submit');
+    document.getElementById('kissanIDInput').placeholder = translate('enterID');
+  </script>
+</body>
+</html>
